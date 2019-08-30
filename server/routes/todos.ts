@@ -31,6 +31,29 @@ router.post(baseRoute, async (req, res) => {
 
 });
 
+router.put(`${baseRoute}/:id`, async (req, res) => {
+  try {
+    const { error } = validateTodo(req.body);
+    if (error) {
+        return res.status(400).send(error.details[0].message);
+    }
+
+    const updatedTodo =  await Todo.findOneAndUpdate({_id: req.params.id}, {
+      completed: req.body.completed,
+      text: req.body.text
+    }, {new: true}, (err, doc) => {
+      if (err) {
+        return res.status(404).send("The todo item with the given Id was not found");
+      }
+      console.log(doc);
+    });
+    res.send(updatedTodo);
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 router.delete(`${baseRoute}/:id`, async (req, res) => {
     try {
         const removedTodo = await Todo.findByIdAndRemove(req.params.id);
