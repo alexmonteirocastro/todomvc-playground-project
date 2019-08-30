@@ -24,7 +24,7 @@ export const Todo = mongoose.model("Todo", todoSchema);
 
 export const validateTodo = (todoItem: ITodo) => {
     const schema = {
-        completed: Joi.boolean().required(),
+        completed: Joi.boolean(),
         text: Joi.string().min(1).max(255)
     };
     return Joi.validate(todoItem, schema);

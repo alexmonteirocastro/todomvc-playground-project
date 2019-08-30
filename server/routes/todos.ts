@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { Todo, validateTodo } from "../models/todo";
 
-const baseRoute = "/api/notes";
+const baseRoute: string = "/api/todos";
 const router = Router();
 
 router.get(baseRoute, async (req, res) => {
