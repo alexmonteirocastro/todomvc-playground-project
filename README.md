@@ -12,7 +12,7 @@ One should have installed in local machine:
 * Yarn
 * MongoDB
 
-## Howw to run this
+## How to run this
 
 Start by installing dependencies with
 
