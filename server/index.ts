@@ -14,9 +14,13 @@ app.use(express.json());
 app.use(todos);
 
 // routes
-app.get("/", (req: Request, res: Response) => res.send("Hej"));
+app.get("/", (req: Request, res: Response) => res.json({message: "Hej"}));
 
 const port: number | string = process.env.PORT || 9000;
-app.listen(port, () => {
+if (app.get("env") !== "test") {
+  app.listen(port, () => {
     console.log(`Server listing on port ${port}...`);
-});
+  });
+}
+
+export default app;
