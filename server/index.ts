@@ -1,3 +1,4 @@
+import { GracefulShutdownManager } from "@moebius/http-graceful-shutdown";
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import mongoose from "mongoose";
@@ -17,6 +18,26 @@ app.use(todos);
 app.get("/", (req: Request, res: Response) => res.send("Hej"));
 
 const port: number | string = process.env.PORT || 9000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server listing on port ${port}...`);
+});
+
+const shutdownManager = new GracefulShutdownManager(server);
+
+const onShutDown = () => {
+  process.stdin.resume();
+  shutdownManager.terminate(() => {
+    mongoose.disconnect(() => {
+      console.log("disconnecting from db...");
+    });
+    console.log("Server is gracefully terminated");
+  });
+};
+
+process.on("SIGINT", () => {
+  onShutDown();
+});
+
+process.on("SIGTERM", () => {
+  onShutDown();
 });
