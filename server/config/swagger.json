@@ -1,0 +1,44 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0"
+  },
+  "host": "localhost:9000",
+  "basePath": "/api/todos",
+  "schemes": ["http"],
+  "produces": ["application/json"],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["Fetch Todos"],
+        "summary": "Fetches all the todo items in the db",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "content": {
+          "application/json": {}
+        }
+      },
+      "post": {
+        "tags": ["Adds Todo"],
+        "summary": "Adds a new todo item to the db",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "content": {
+          "application/json": {}
+        }
+      }
+    }
+  }
+}

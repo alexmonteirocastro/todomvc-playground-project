@@ -4,6 +4,9 @@ import express, { Application, Request, Response } from "express";
 import mongoose from "mongoose";
 import todos from "./routes/todos";
 
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./config/swagger.json";
+
 const app: Application = express();
 
 mongoose.connect("mongodb://localhost/todomvc", {useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true})
@@ -13,6 +16,7 @@ mongoose.connect("mongodb://localhost/todomvc", {useNewUrlParser: true, useFindA
 app.use(cors());
 app.use(express.json());
 app.use(todos);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // routes
 app.get("/", (req: Request, res: Response) => res.send("Hej"));
