@@ -1,11 +1,16 @@
+import * as mongoose from 'mongoose'
+
 const cleanup = (signal) => {
   return new Promise((resolve) => {
-	console.log('... called signal: ' + signal);
-  	console.log('... in cleanup')
-  	setTimeout(() => {
-  		console.log('... cleanup finished');
-  		resolve();
-  	}, 1000)
+	  console.log('... called signal: ' + signal);
+    console.log('... in cleanup')
+    mongoose.connection.close(() => {
+      console.log('Mongoose disconnecting...');
+    })
+    setTimeout(() => {
+      console.log('... cleanup finished');
+      resolve();
+    }, 1000)
   });
 }
 
