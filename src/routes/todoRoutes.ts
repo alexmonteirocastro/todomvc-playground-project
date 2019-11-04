@@ -21,6 +21,14 @@ export class Routes {
       .get(this.todoController.getAllTodoItems)
       // POST endpoint - Creates a new todo item
       .post(this.todoController.addNewTodo)
+      // DELETE endpoint - Deletes all the todos
+      .delete(this.todoController.deleteAllTodos)
+      
+    app.route(`${baseRoute}/completed`)
+      .get(this.todoController.getCompletedTodoItems)
+
+    app.route(`${baseRoute}/non-completed`)
+      .get(this.todoController.getNonCompletedTodoItems)
 
     // Individual todo item endpoints
     app.route(`${baseRoute}/:todoId`)
@@ -30,5 +38,20 @@ export class Routes {
       .put(this.todoController.updateTodo)
       // deletes an existing todo item
       .delete(this.todoController.deleteTodo)
+
+    // for bad routes
+    app.route('*')
+      .get((req: Request, res: Response) => {
+        res.status(HttpStatusCode.NOT_FOUND).send('Esto non ecziste!')
+      })
+      .post((req: Request, res: Response) => {
+        res.status(HttpStatusCode.NOT_FOUND).send('Esto non ecziste!')
+      })
+      .put((req: Request, res: Response) => {
+        res.status(HttpStatusCode.NOT_FOUND).send('Esto non ecziste!')
+      })
+      .delete((req: Request, res: Response) => {
+        res.status(HttpStatusCode.NOT_FOUND).send('Esto non ecziste!')
+      });
   }
 }

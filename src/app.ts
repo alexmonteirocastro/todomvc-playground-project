@@ -20,6 +20,8 @@ class App {
   private config(): void {
     //for debugging purposes
     this.app.use(loggerMiddleware)
+    //for handling errors
+    this.app.use(errorMiddleware)
     // support application/json type post data
     this.app.use(bodyParser.json());
     //support application/x-www-form-urlencoded post data
