@@ -4,12 +4,12 @@ import { Routes } from "./routes/todoRoutes";
 import errorMiddleware from './middleware/error.middleware'
 import loggerMiddleware from './middleware/request_logger.middleware'
 import * as mongoose from "mongoose";
-
+import { DATABASE_URI } from './utils/config'
 class App {
 
   public app: express.Application = express()
   public routePrv: Routes = new Routes();
-  public mongoUrl: string = 'mongodb://localhost/todomvc';
+  public mongoUrl: string = DATABASE_URI;
 
   constructor() {
       this.config();  
